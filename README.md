@@ -23,6 +23,7 @@ It's main purpose is to replace the sliders from 3DConnection software (3DConnec
 `.venv\Scripts\activate`
 5. Install dependencies:  
 `pip install -r requirements.txt`
-6. Run `Spacemose Profiles.bat` to launch the app.
+6. Connect your Spacemouse (the app will crash without a connection).
+7. Run `Spacemose Profiles.bat` to launch the app.
 
 This project is based on the work of [AndunHH](https://github.com/AndunHH/spacemouse), [TeachingTech](https://www.printables.com/de/model/864950-open-source-spacemouse-space-mushroom-remix) and many other contributors.
