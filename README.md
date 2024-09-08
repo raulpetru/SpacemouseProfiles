@@ -1,6 +1,11 @@
 # Description
 This project offers a user interface for [DIY Spacemouse](https://www.printables.com/de/model/864950-open-source-spacemouse-space-mushroom-remix) to control sensitivity parameters by app basis.
 It's main purpose is to replace the sliders from 3DConnection software (3DConnection installation is mandatory).
+<p float="left">
+  <img src="https://github.com/user-attachments/assets/b068b5ea-63c1-4627-b437-04fd9366b2af" width=49%>
+  <img src="https://github.com/user-attachments/assets/de639742-c974-4c94-8e47-98412571ab8a" width=49%>
+</p>
+
 
 # Installation
 ## Set up Spacemouse firmware
