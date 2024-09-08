@@ -1,0 +1,6 @@
+Input, Select, Screen {
+    border: round $primary;
+}
+Input:hover {
+    background: $background-lighten-2;
+}
