@@ -87,6 +87,50 @@ int modifierFunction(int x) {
 
 String inputString;
 
+void processPair(String pair) {
+    // Find the position of the '=' sign
+    int separatorIndex = pair.indexOf('=');
+
+    // Split the string into key and value
+    String key = pair.substring(0, separatorIndex);
+    String value = pair.substring(separatorIndex + 1);
+
+    // Use the results
+    if (key == "TRANSX_SENSITIVITY") {
+        TRANSX_SENSITIVITY = value.toFloat();
+    }
+    if (key == "TRANSY_SENSITIVITY") {
+        TRANSY_SENSITIVITY = value.toFloat();
+    }
+    if (key == "POS_TRANSZ_SENSITIVITY") {
+        POS_TRANSZ_SENSITIVITY = value.toFloat();
+    }
+    if (key == "NEG_TRANSZ_SENSITIVITY") {
+        NEG_TRANSZ_SENSITIVITY = value.toFloat();
+    }
+    if (key == "GATE_NEG_TRANSZ") {
+        GATE_NEG_TRANSZ = value.toFloat();
+    }
+    if (key == "GATE_ROTX") {
+        GATE_ROTX = value.toFloat();
+    }
+    if (key == "GATE_ROTY") {
+        GATE_ROTY = value.toFloat();
+    }
+    if (key == "GATE_ROTZ") {
+        GATE_ROTZ = value.toFloat();
+    }
+    if (key == "ROTX_SENSITIVITY") {
+        ROTX_SENSITIVITY = value.toFloat();
+    }
+    if (key == "ROTY_SENSITIVITY") {
+        ROTY_SENSITIVITY = value.toFloat();
+    }
+    if (key == "ROTZ_SENSITIVITY") {
+        ROTZ_SENSITIVITY = value.toFloat();
+    }
+}
+
 void setup() {
 // setup the keys e.g. to internal pull-ups
 #if NUMKEYS > 0
@@ -134,46 +178,22 @@ void loop() {
   //   }
   // }
   if (Serial.available()) {
-        inputString = Serial.readString();  // Read the input string
+        inputString = Serial.readStringUntil('\n');  // Read the input string
 
-        // Find the position of the '=' sign
-        int separatorIndex = inputString.indexOf('=');
+        // Split the string by commas
+        int startIndex = 0;
+        int endIndex = inputString.indexOf(',');
 
-        // Split the string into two parts
-        String key = inputString.substring(0, separatorIndex);
-        String value = inputString.substring(separatorIndex + 1);
+        while (endIndex != -1) {
+            String pair = inputString.substring(startIndex, endIndex);
+            processPair(pair);
+            startIndex = endIndex + 1;
+            endIndex = inputString.indexOf(',', startIndex);
+        }
 
-        // Use the results
-        if (key == "TRANSX_SENSITIVITY"){
-          TRANSX_SENSITIVITY = value.toFloat();
-        }
-        if (key == "TRANSY_SENSITIVITY"){
-          TRANSY_SENSITIVITY = value.toFloat();
-        }
-        if (key == "POS_TRANSZ_SENSITIVITY"){
-          POS_TRANSZ_SENSITIVITY = value.toFloat();
-        }
-        if (key == "NEG_TRANSZ_SENSITIVITY"){
-          NEG_TRANSZ_SENSITIVITY = value.toFloat();
-        }
-        if (key == "GATE_NEG_TRANSZ"){
-          GATE_NEG_TRANSZ = value.toFloat();
-        }
-        if (key == "GATE_ROTX"){
-          GATE_ROTX = value.toFloat();
-        }
-        if (key == "GATE_ROTY"){
-          GATE_ROTY = value.toFloat();
-        }
-        if (key == "GATE_ROTZ"){
-          GATE_ROTZ = value.toFloat();
-        }
-        if (key == "ROTX_SENSITIVITY"){
-          ROTX_SENSITIVITY = value.toFloat();
-        }
-        if (key == "ROTY_SENSITIVITY"){
-          ROTY_SENSITIVITY = value.toFloat();
-        }
+        // Process the last pair (or the only pair if no commas were found)
+        String lastPair = inputString.substring(startIndex);
+        processPair(lastPair);
     }
 
   // Joystick values are read. 0-1023

@@ -1,3 +1,4 @@
+from pyexpat.errors import messages
 from textual import on
 from textual.app import App, ComposeResult
 from textual.containers import Center
@@ -16,18 +17,22 @@ selected_port = str()
 
 
 def send_values_to_mouse(self):
+    # Open serial
+    ser = serial.Serial(selected_port, 25000, timeout=1)
+    send_list = []
     for widget in self.app.query(NewInput):
         if active_window in loaded_profiles:
             if widget.id in loaded_profiles[active_window]:
                 widget.value = loaded_profiles[active_window][widget.id]
         else:
             widget.value = widget.initial_value
-        serial_send(selected_port, f'{widget.id}={widget.value}')
-
-
-def serial_send(serial_port, message):
-    ser = serial.Serial(serial_port, 25000, timeout=1)
+        send_list.append(f'{widget.id}={widget.value},')
+    # Remove last comma
+    send_list[-1] = send_list[-1][:-1]
+    send_list.append('\n')
+    message = ''.join(send_list)
     ser.write(message.encode('utf-8'))
+    # Close serial
     ser.close()
 
 
@@ -119,6 +124,7 @@ class SpacemouseProfiles(App):
     BINDINGS = [("q", 'quit', "Close app")]
 
     CSS_PATH = 'app.tcss'
+
     def compose(self) -> ComposeResult:
         yield Header(name='test')
         yield Center(ActiveApp())
@@ -151,13 +157,7 @@ class SpacemouseProfiles(App):
 
     @on(Button.Pressed)
     def button_pressed(self) -> None:
-        for widget in self.app.query(NewInput):
-            if active_window in loaded_profiles:
-                if widget.id in loaded_profiles[active_window]:
-                    widget.value = loaded_profiles[active_window][widget.id]
-            else:
-                widget.value = widget.initial_value
-            serial_send(selected_port, f'{widget.id}={widget.value}')
+        send_values_to_mouse(self)
 
 
 if __name__ == "__main__":
