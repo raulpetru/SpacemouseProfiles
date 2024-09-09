@@ -68,7 +68,7 @@ class ActiveApp(Static):
             global active_window
             try:
                 process = psutil.Process(pid)
-                if process.name() == 'WindowsTerminal.exe' or process.name() == 'explorer.exe':
+                if process.name() in ('WindowsTerminal.exe', 'explorer.exe', 'cmd.exe'):
                     if self.last_window == 'None':
                         self.active_window = 'None'
                         active_window = self.active_window
