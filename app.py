@@ -137,7 +137,7 @@ class SpacemouseProfiles(App):
         yield Center(InputSensitivity('GATE_NEG_TRANSZ', str(15)))
         yield Center(InputSensitivity('GATE_ROTX', str(15)))
         yield Center(InputSensitivity('GATE_ROTY', str(15)))
-        yield Center(InputSensitivity('GATE_ROTZ', str(15)))
+        yield Center(InputSensitivity('GATE_ROTZ', str(75)))
         yield Center(InputSensitivity('ROTX_SENSITIVITY', str(1.5)))
         yield Center(InputSensitivity('ROTY_SENSITIVITY', str(1.5)))
         yield Center(InputSensitivity('ROTZ_SENSITIVITY', str(5)))
