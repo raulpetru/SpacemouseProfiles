@@ -1,3 +1,8 @@
+# This app is superseded by [DIY SpaceMouse Profiles](https://github.com/raulpetru/DIY_SpaceMouse_Profiles)
+
+
+
+
 # Description
 This project offers a user interface for [DIY Spacemouse](https://www.printables.com/de/model/864950-open-source-spacemouse-space-mushroom-remix) to control sensitivity parameters by app basis.
 It's main purpose is to replace the sliders from 3DConnection software (3DConnection installation is mandatory).
